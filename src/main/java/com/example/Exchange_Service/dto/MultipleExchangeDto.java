@@ -1,63 +1,37 @@
-package com.example.Exchange_Service.entity;
+package com.example.Exchange_Service.dto;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name="exchange_details")
-public class Exchange {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class MultipleExchangeDto {
     public Integer item_id;
-    @NotNull
-    @Size(max=25)
     public String item_name;
-    @NotNull
     public Integer category;
-    @NotNull
     public Integer item_condition;
-    @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public LocalDateTime posted_on;
-    @NotNull
     public String item_image;
-    @NotNull
     public String item_wanted;
-
     public String notes;
-    @NotNull
     public Integer price;
-    @ManyToOne
-    @JoinColumn(name = "owner_id",nullable = false)
-    private Exchanger exchangeUser;
-    public Exchange(){
 
-     }
-    public Exchange(String item_name, Integer item_id, Integer item_condition, Integer category,
-                    LocalDateTime posted_on, String item_image, String item_wanted, String notes,
-                    Exchanger exchangeUser) {
-        this.item_name = item_name;
+    public MultipleExchangeDto(Integer item_id, String item_name,
+                               Integer category, Integer item_condition, LocalDateTime posted_on,
+                               String item_image, String item_wanted, String notes, Integer price) {
         this.item_id = item_id;
-        this.item_condition = item_condition;
+        this.item_name = item_name;
         this.category = category;
+        this.item_condition = item_condition;
         this.posted_on = posted_on;
         this.item_image = item_image;
         this.item_wanted = item_wanted;
         this.notes = notes;
-        this.exchangeUser = exchangeUser;
+        this.price = price;
     }
 
-
-    public Exchanger getExchangeUser() {
-        return exchangeUser;
-    }
-
-    public void setExchangeUser(Exchanger exchangeUser) {
-        this.exchangeUser = exchangeUser;
+    public MultipleExchangeDto() {
     }
 
     public Integer getItem_id() {
@@ -76,14 +50,6 @@ public class Exchange {
         this.item_name = item_name;
     }
 
-    public Integer getCategory() {
-        return category;
-    }
-
-    public void setCategory(Integer category) {
-        this.category = category;
-    }
-
     public Integer getItem_condition() {
         return item_condition;
     }
@@ -92,6 +58,13 @@ public class Exchange {
         this.item_condition = item_condition;
     }
 
+    public Integer getCategory() {
+        return category;
+    }
+
+    public void setCategory(Integer category) {
+        this.category = category;
+    }
     public LocalDateTime getPosted_on() {
         return posted_on;
     }
@@ -124,11 +97,11 @@ public class Exchange {
         this.notes = notes;
     }
 
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
     public Integer getPrice() {
         return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 }

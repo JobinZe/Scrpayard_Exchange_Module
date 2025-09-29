@@ -10,23 +10,29 @@ import java.util.List;
 @Table(name="exchange_item_owner")
 public class Exchanger {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer owner_id;
+    @NotNull
+    @Column(name = "owner_name")
+    private String name;
     @NotNull
     private String email;
     @NotNull
     private String city;
     @NotNull
-    private String pincode;
+    private Integer pincode;
     @OneToMany(mappedBy = "exchangeUser",cascade = CascadeType.ALL)
     public List<Exchange> exchanges = new ArrayList<>();
-    public Exchanger(Integer owner_id, String email, String city, String pincode) {
+    public Exchanger(Integer owner_id, String email, String city, Integer pincode,String name) {
         this.owner_id = owner_id;
         this.email = email;
         this.city = city;
         this.pincode = pincode;
+        this.name=name;
     }
+    public Exchanger(){
 
+    }
     public Integer getOwner_id() {
         return owner_id;
     }
@@ -51,11 +57,19 @@ public class Exchanger {
         this.city = city;
     }
 
-    public String getPincode() {
+    public Integer getPincode() {
         return pincode;
     }
 
-    public void setPincode(String pincode) {
+    public void setPincode(Integer pincode) {
         this.pincode = pincode;
     }
+    public String getOwner_name() {
+        return name;
+    }
+
+    public void setOwner_name(String owner_name) {
+        this.name = owner_name;
+    }
+
 }
